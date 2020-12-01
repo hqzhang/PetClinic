@@ -1,9 +1,7 @@
+    
 pipeline {
     agent any
     parameters {
-        pipeline {
-    agent any
-   parameters {
 
         extendedChoice( name: 'TagName', defaultValue: '', description: 'tag name', 
             type: 'PT_SINGLE_SELECT', 
