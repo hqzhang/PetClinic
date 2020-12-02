@@ -26,14 +26,14 @@ pipeline {
         stage('Sonarqube') {
            environment {
                scannerHome = tool 'SoarScanner4'
-               myscanner = tool 'myscanner'
+              
            }
            steps {
                script {
                withSonarQubeEnv('sonarqube') {
                    sh "${scannerHome}/bin/sonar-scanner"
                 }
-               def sonar = tool 'myscanner'
+               def sonar = tool 'SoarScanner4'
                println $sonar
                timeout(time: 10, unit: 'MINUTES') {
                    waitForQualityGate abortPipeline: true
