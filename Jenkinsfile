@@ -29,6 +29,7 @@ pipeline {
                myscanner = tool 'myscanner'
            }
            steps {
+               script {
                withSonarQubeEnv('sonarqube') {
                    sh "${scannerHome}/bin/sonar-scanner"
                 }
@@ -37,6 +38,7 @@ pipeline {
                timeout(time: 10, unit: 'MINUTES') {
                    waitForQualityGate abortPipeline: true
                 }
+       }
     }
 }
         ////// 
