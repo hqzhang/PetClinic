@@ -25,15 +25,15 @@ pipeline {
         //////
         stage('Sonarqube') {
            environment {
-               scannerHome = tool 'Sonar-Scanner'
+               scanner = tool 'Sonar-Scanner'
               
            }
            steps {
                script {
-                def sonar = tool 'Sonar-Scanner'
-               println $sonar
+               //def sonar = tool 'Sonar-Scanner'
+               //println $sonar
                withSonarQubeEnv('SonarQubeServer') {
-                   sh "${sonar}/bin/sonar-scanner"
+                   sh "${scanner}/bin/sonar-scanner"
                 }
                 }
        }
