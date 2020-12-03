@@ -33,7 +33,8 @@ pipeline {
                //def sonar = tool 'Sonar-Scanner'
                //println $sonar
                withSonarQubeEnv('SonarQubeServer') {
-                   sh "${scanner}/bin/sonar-scanner"
+                   //sh "${scanner}/bin/sonar-scanner"
+                    sh "mvn clean deploy sonar:sonar"
                 }
                 }
        }
