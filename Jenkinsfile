@@ -38,7 +38,7 @@ pipeline {
                 }
        }
     }
-}
+
         ////// 
     
         stage('Stage: Verification Test'){
