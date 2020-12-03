@@ -30,7 +30,7 @@ pipeline {
            }
            steps {
                script {
-                def sonar = tool 'SoarScanner4'
+                def sonar = tool 'Sonar-Scanner'
                println $sonar
                withSonarQubeEnv('SonarQubeServer') {
                    sh "${sonar}/bin/sonar-scanner"
