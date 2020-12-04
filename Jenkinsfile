@@ -2,7 +2,6 @@
 pipeline {
     agent any
     parameters {
-
         extendedChoice( name: 'TagName', defaultValue: '', description: 'tag name', 
             type: 'PT_SINGLE_SELECT', 
             groovyScript: """def gettags = ("git ls-remote -t https://github.com/hqzhang/octest.git").execute()
@@ -32,13 +31,13 @@ pipeline {
                script {
                //def sonar = tool 'Sonar-Scanner'
                //println $sonar
-               withSonarQubeEnv('SonarQubeServer') {
-                   //sh "${scanner}/bin/sonar-scanner"
-                    sh "mvn clean deploy sonar:sonar"
+                   withSonarQubeEnv('SonarQubeServer') {
+                      sh "${scanner}/bin/sonar-scanner"
+                   // sh "mvn clean deploy sonar:sonar"
+                   }
                 }
-                }
-       }
-    }
+          }
+        }
 
         ////// 
     
