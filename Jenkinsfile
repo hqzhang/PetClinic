@@ -29,12 +29,18 @@ pipeline {
            }
            steps {
                script {
-               //def sonar = tool 'Sonar-Scanner'
-               //println $sonar
+               println $scanner
+               sh """mvn sonar:sonar \
+                   -Dsonar.projectKey=mytest \
+                   -Dsonar.host.url=http://localhost:9000 \
+                   -Dsonar.login=cd2ff10b50b4055aa5d4988208e4dcdfa3c861e6
+                  """
+                 /**
                    withSonarQubeEnv('SonarQubeServer') {
                       sh "${scanner}/bin/sonar-scanner"
                    // sh "mvn clean deploy sonar:sonar"
                    }
+                 **/
                 }
           }
         }
