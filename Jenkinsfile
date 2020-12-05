@@ -62,7 +62,7 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Verification Test"
-                    openshift.withCluster(url, token){
+                  /**  openshift.withCluster(url, token){
                         openshift.withProject(proj){  
                             echo "Get route url.."
                             def route  = openshift.selector('route','mynginx').object().spec.host
@@ -87,7 +87,7 @@ pipeline {
                                 exit 1;
                             }
                         }
-                    }                           
+                    }**/                           
                 }
             }
         }
