@@ -29,7 +29,7 @@ pipeline {
            }
            steps {
                script {
-               println $scanner
+               println(scanner);
                sh """mvn sonar:sonar \
                    -Dsonar.projectKey=mytest \
                    -Dsonar.host.url=http://localhost:9000 \
