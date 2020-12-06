@@ -40,8 +40,8 @@ pipeline {
                **/
 
                withSonarQubeEnv('SonarQubeServer') {
-                 sh """${scanner}/bin/sonar-scanner \
-                    -Dsonar.projectKey=mytest 
+                 sh """${scanner}/bin/sonar-scanner -v """
+                 sh """${scanner}/bin/sonar-scanner -Dsonar.projectKey=mytest 
                   """
                   //  -Dsonar.host.url=http://localhost:9000 \
                   //  -Dsonar.login=4f16c9828e2b2aa50afe00922d0b3a8d9edca0af
