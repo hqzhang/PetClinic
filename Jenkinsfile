@@ -1,4 +1,3 @@
-    
 pipeline {
     agent any
     parameters {
@@ -21,11 +20,9 @@ pipeline {
     //triggers { pollSCM('*/1 * * * *') }
     options { timestamps () }
     stages {
-        //////
         stage('Sonarqube') {
            environment {
                scanner = tool 'Sonar-Scanner'
-              
            }
            steps {
                script {
@@ -35,23 +32,22 @@ pipeline {
                    -Dsonar.host.url=http://localhost:9000 \
                    -Dsonar.login=cd2ff10b50b4055aa5d4988208e4dcdfa3c861e6
                   """
-               **/
 
                withSonarQubeEnv('SonarQubeServer') {
                  sh """mvn compile sonar:sonar  -Dsonar.projectKey=mytest
                    """
-                   //-Dsonar.host.url=http://localhost:9000 \
-                   //-Dsonar.login=cd2ff10b50b4055aa5d4988208e4dcdfa3c861e6
-                  
-              }
-              /**
+               }
+               **/
 
-                   withSonarQubeEnv('SonarQubeServer') {
-                      sh "${scanner}/bin/sonar-scanner"
-                   // sh "mvn clean deploy sonar:sonar"
-                   }
-                 **/
-                }
+               withSonarQubeEnv('SonarQubeServer') {
+                 sh """sonar-scanner \
+                    -Dsonar.projectKey=mytest 
+                  """
+                  //  -Dsonar.host.url=http://localhost:9000 \
+                  //  -Dsonar.login=4f16c9828e2b2aa50afe00922d0b3a8d9edca0af
+               }
+                 
+            }
           }
         }
 
