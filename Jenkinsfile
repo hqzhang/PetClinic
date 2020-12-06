@@ -34,7 +34,9 @@ pipeline {
                   """
 
                withSonarQubeEnv('SonarQubeServer') {
-                 sh """mvn compile sonar:sonar  -Dsonar.projectKey=mytest
+                 sh """mvn compile sonar:sonar  \
+                          -Dsonar.projectKey=mytest \
+                          -Dsonar.java.binaries=./target/classes
                    """
                }
                **/
