@@ -27,27 +27,52 @@ pipeline {
            steps {
                script {
                println(scanner);
+               def nodeImg = docker.image('node:14.15.1-alpine3.10');
+               def mvnImag = docker.image('maven:3-alpine');
+               nodeImg.pull;
+               mvnImg.pull;
+               gloalvar="--batch-mode -gs $JENKINS_HOME/.m2/setting.xml -Dmaven.repo.local=$JENKINS_HOME/.m2"
+               mvnImg.inside("-v /AppData/jenkins:/AppData/jenkins") {
+                     sh """mvn -X $globalvar 
+                      sonar:sonar 
+                      -Dsonar.host.url=http://localhost:9000
+                      -Dsonar.projectName=
+                      -Dsonar.projectVersion=
+                      -Dsonar.branch.name=
+                      -Dsonar.projectKey=sbms-server
+                      """
+               }
+               
+               nodeImg.inside(''){
+                 sh """${scanner}/bin/sonar-scanner -v """
+                 sh """${scanner}/bin/sonar-scanner
+                      -Dsonar.host.url=http://localhost:9000
+                      -Dsonar.projectName=
+                      -Dsonar.projectVersion=
+                      -Dsonar.branch.name=
+                      -Dsonar.projectKey=sbms-web
+                  """
+               }
+
                /**sh """mvn compile sonar:sonar \
                    -Dsonar.projectKey=mytest \
                    -Dsonar.host.url=http://localhost:9000 \
                    -Dsonar.login=cd2ff10b50b4055aa5d4988208e4dcdfa3c861e6
                   """
-
                withSonarQubeEnv('SonarQubeServer') {
                  sh """mvn compile sonar:sonar  \
                           -Dsonar.projectKey=mytest \
                           -Dsonar.java.binaries=./target/classes
                    """
                }
-               **/
 
                withSonarQubeEnv('SonarQubeServer') {
                  sh """${scanner}/bin/sonar-scanner -v """
-                 sh """${scanner}/bin/sonar-scanner -Dsonar.projectKey=mytest -Dsonar.java.binaries=./target/classes 
+                 sh """${scanner}/bin/sonar-scanner 
+                      -Dsonar.projectKey=mytest 
+                      -Dsonar.java.binaries=./target/classes 
                   """
-                  //  -Dsonar.host.url=http://localhost:9000 \
-                  //  -Dsonar.login=4f16c9828e2b2aa50afe00922d0b3a8d9edca0af
-               }
+               }**/
                  
             }
           }
