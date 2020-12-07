@@ -28,7 +28,7 @@ pipeline {
                script {
                println(scanner);
                def nodeImg = docker.image('node:14.15.1-alpine3.10');
-               def mvnImag = docker.image('maven:3.6.3-jdk-8');
+               def mvnImg = docker.image('maven:3.6.3-jdk-8');
                
                nodeImg.pull();
                mvnImg.pull();
