@@ -32,25 +32,25 @@ pipeline {
                nodeImg.pull;
                mvnImg.pull;
                gloalvar="--batch-mode -gs $JENKINS_HOME/.m2/setting.xml -Dmaven.repo.local=$JENKINS_HOME/.m2"
-               mvnImg.inside("-v /AppData/jenkins:/AppData/jenkins") {
+           /**    mvnImg.inside("-v /AppData/jenkins:/AppData/jenkins") {
                      sh """mvn -X $globalvar 
-                      sonar:sonar 
-                      -Dsonar.host.url=http://localhost:9000
-                      -Dsonar.projectName=
-                      -Dsonar.projectVersion=
-                      -Dsonar.branch.name=
-                      -Dsonar.projectKey=sbms-server
+                      sonar:sonar                            \
+                      -Dsonar.host.url=http://localhost:9000 \
+                      -Dsonar.projectName=petclinic          \
+                      -Dsonar.projectVersion=$BUILD_NUMBER   \
+                      -Dsonar.branch.name=master             \
+                      -Dsonar.projectKey=mytest
                       """
                }
-               
-               nodeImg.inside(''){
+             **/ 
+              nodeImg.inside(''){
                  sh """${scanner}/bin/sonar-scanner -v """
-                 sh """${scanner}/bin/sonar-scanner
-                      -Dsonar.host.url=http://localhost:9000
-                      -Dsonar.projectName=
-                      -Dsonar.projectVersion=
-                      -Dsonar.branch.name=
-                      -Dsonar.projectKey=sbms-web
+                 sh """${scanner}/bin/sonar-scanner          \
+                      -Dsonar.host.url=http://localhost:9000 \
+                      -Dsonar.projectName=petclinic          \
+                      -Dsonar.projectVersion=$BUILD_NUMBER   \
+                      -Dsonar.branch.name=master             \
+                      -Dsonar.projectKey=mytest
                   """
                }
 
