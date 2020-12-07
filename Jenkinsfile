@@ -28,10 +28,10 @@ pipeline {
                script {
                println(scanner);
                def nodeImg = docker.image('node:14.15.1-alpine3.10');
-               def mvnImag = docker.image('maven:3-alpine');
-               def img = docker.image('ubuntu:latest')
+               def mvnImag = docker.image('maven:3.6.3-jdk-8');
+               
                nodeImg.pull();
-                mvnImg.pull();
+               mvnImg.pull();
                gloalvar="--batch-mode -gs $JENKINS_HOME/.m2/setting.xml -Dmaven.repo.local=$JENKINS_HOME/.m2"
            /**    mvnImg.inside("-v /AppData/jenkins:/AppData/jenkins") {
                      sh """mvn -X $globalvar 
