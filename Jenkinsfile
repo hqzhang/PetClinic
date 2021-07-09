@@ -1,3 +1,6 @@
+properties([
+    pipelineTriggers([githubPush()]),
+)]
 pipeline {
     agent any
     parameters {
@@ -32,7 +35,7 @@ pipeline {
                
                nodeImg.pull();
                mvnImg.pull();
-               def gloalvar="--batch-mode -gs $JENKINS_HOME/.m2/setting.xml -Dmaven.repo.local=$JENKINS_HOME/.m2"
+               def globalvar="--batch-mode -gs $JENKINS_HOME/.m2/setting.xml -Dmaven.repo.local=$JENKINS_HOME/.m2"
                sh """mvn -X $globalvar
                       sonar:sonar                            \
                       -Dsonar.host.url=http://localhost:9000 \
