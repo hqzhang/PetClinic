@@ -50,7 +50,7 @@ pipeline {
                
                nodeImg.pull();
                mvnImg.pull();*/
-               def globalvar="--batch-mode -gs /Users/hongqizhang/.m2/settings.xml -Dmaven.repo.local=/Users/hongqizhang/.m2"
+               def globalvar="--batch-mode -Dmaven.repo.local=/Users/hongqizhang/.m2"
                sh """mvn -X $globalvar
                       sonar:sonar                            \
                       -Dsonar.host.url=http://localhost:9000 \
