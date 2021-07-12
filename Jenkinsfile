@@ -30,9 +30,9 @@ pipeline {
            steps {
                script {
                    withSonarQubeEnv('SonarQubeServer') {
-                 sh """${scanner}/bin/sonar-scanner -v """
-                 sh """${scanner}/bin/sonar-scanner
-                      -Dsonar.projectKey=mytest
+                 //sh """${scanner}/bin/sonar-scanner -v """
+                 sh """${scanner}/bin/sonar-scanner  \
+                      -Dsonar.projectKey=mytest     \
                       -Dsonar.java.binaries=./target/classes
                   """
                }
