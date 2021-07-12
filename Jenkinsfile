@@ -33,7 +33,7 @@ pipeline {
                  //sh """${scanner}/bin/sonar-scanner -v """
                  sh """${scanner}/bin/sonar-scanner  \
                       -Dsonar.projectKey=mytest     \
-                      -Dsonar.java.binaries=./target/classes
+                      -Dsonar.java.binaries=/Users/hongqizhang/workspace/sonartest/PetClinic/target/classes \
                   """
                }
                println(scanner);
