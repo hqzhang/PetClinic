@@ -23,26 +23,34 @@ pipeline {
     //triggers { pollSCM('*/1 * * * *') }
     options { timestamps () }
     stages {
-        stage('Sonarqube') {
+        stage('Sonarqube Scanner') {
            environment {
                scanner = tool 'Sonar-Scanner'
            }
            steps {
                script {
                    withSonarQubeEnv('SonarQubeServer') {
+                   println(scanner);
                  //sh """${scanner}/bin/sonar-scanner -v """
                  sh """${scanner}/bin/sonar-scanner  \
                       -Dsonar.projectKey=mytest     \
                       -Dsonar.java.binaries=/Users/hongqizhang/workspace/sonartest/PetClinic/target/classes \
                   """
                }
+      }}}
+       stage('Maven Sonar Scanner') {
+           environment {
+               scanner = tool 'Sonar-Scanner'
+           }
+           steps {
+               script {
                println(scanner);
-               def nodeImg = docker.image('node:14.15.1-alpine3.10');
-               def mvnImg = docker.image('maven:3.6.3-jdk-8');
+              /*def nodeImg = docker.image('node:14.15.1-alpine3.10');
+              def mvnImg = docker.image('maven:3.6.3-jdk-8');
                
                nodeImg.pull();
-               mvnImg.pull();
-               def globalvar="--batch-mode -gs $JENKINS_HOME/.m2/settings.xml -Dmaven.repo.local=$JENKINS_HOME/.m2"
+               mvnImg.pull();*/
+               def globalvar="--batch-mode -gs /Users/hongqizhang/.m2/settings.xml -Dmaven.repo.local=/Users/hongqizhang/.m2"
                sh """mvn -X $globalvar
                       sonar:sonar                            \
                       -Dsonar.host.url=http://localhost:9000 \
@@ -51,7 +59,7 @@ pipeline {
                       -Dsonar.branch.name=master             \
                       -Dsonar.projectKey=mytest
               """
-/* mvnImg.inside("-v /AppData/jenkins:/AppData/jenkins") {
+             /* mvnImg.inside("-v /AppData/jenkins:/AppData/jenkins") {
                      sh """mvn -X $globalvar 
                       sonar:sonar                            \
                       -Dsonar.host.url=http://localhost:9000 \
@@ -74,25 +82,6 @@ pipeline {
                   """
                }
               **/
-               /**sh """mvn compile sonar:sonar \
-                   -Dsonar.projectKey=mytest \
-                   -Dsonar.host.url=http://localhost:9000 \
-                   -Dsonar.login=cd2ff10b50b4055aa5d4988208e4dcdfa3c861e6
-                  """
-               withSonarQubeEnv('SonarQubeServer') {
-                 sh """mvn compile sonar:sonar  \
-                          -Dsonar.projectKey=mytest \
-                          -Dsonar.java.binaries=./target/classes
-                   """
-               }
-
-               withSonarQubeEnv('SonarQubeServer') {
-                 sh """${scanner}/bin/sonar-scanner -v """
-                 sh """${scanner}/bin/sonar-scanner 
-                      -Dsonar.projectKey=mytest 
-                      -Dsonar.java.binaries=./target/classes 
-                  """
-               }**/
                  
             }
           }
