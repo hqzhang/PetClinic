@@ -29,6 +29,13 @@ pipeline {
            }
            steps {
                script {
+                   withSonarQubeEnv('SonarQubeServer') {
+                 sh """${scanner}/bin/sonar-scanner -v """
+                 sh """${scanner}/bin/sonar-scanner
+                      -Dsonar.projectKey=mytest
+                      -Dsonar.java.binaries=./target/classes
+                  """
+               }
                println(scanner);
                def nodeImg = docker.image('node:14.15.1-alpine3.10');
                def mvnImg = docker.image('maven:3.6.3-jdk-8');

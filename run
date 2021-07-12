@@ -1,0 +1,6 @@
+mvn compile sonar:sonar \
+  -Dsonar.projectName=PetClinic \
+  -Dsonar.projectVersion=myversion \
+  -Dsonar.projectKey=mytest \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=db8585466cf319bf6f5d03dc44519a1b8b6f956e
